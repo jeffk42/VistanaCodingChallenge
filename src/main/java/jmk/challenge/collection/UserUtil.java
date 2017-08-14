@@ -6,7 +6,10 @@ package jmk.challenge.collection;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import jmk.challenge.controller.UserLoginController;
 import jmk.challenge.model.Login;
 import jmk.challenge.model.User;
 
@@ -16,6 +19,8 @@ import jmk.challenge.model.User;
  *
  */
 public class UserUtil {
+	
+	private static final Logger LOG = Logger.getLogger(UserUtil.class.getName());
 	
 	/**
 	 * The list of available security questions for user registration.
@@ -55,11 +60,17 @@ public class UserUtil {
 				loginA = thisUser.getAnswer3();
 			
 			if (login.getUsername().equals(thisUser.getUsername()) && 
-					login.getSecurityAnswer().equalsIgnoreCase(loginA))
+					login.getSecurityAnswer().equalsIgnoreCase(loginA)) {
+				LOG.log(Level.INFO, "User "+thisUser.getUsername()+" has been validated.");
 				return thisUser;
+			}
 			else return null;
 		}
-		else return null;
+		else {
+			LOG.log(Level.WARNING, "While validating user: Login or User object is null.");
+			return null;
+		}
+			
 		
 	}
 

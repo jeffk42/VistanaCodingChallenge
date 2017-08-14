@@ -1,9 +1,11 @@
 package jmk.challenge.controller;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +22,8 @@ import jmk.challenge.model.User;
  */
 @Controller
 public class UserRegistrationController {
+	
+	private static final Logger LOG = Logger.getLogger(UserRegistrationController.class.getName());
 
 /**
  * Handle the initial registration page.
@@ -29,10 +33,10 @@ public class UserRegistrationController {
  */
   @RequestMapping(value = "/register", method = RequestMethod.GET)
   public ModelAndView showRegister(HttpServletRequest request, HttpServletResponse response) {
-
+	
     ModelAndView modelView = new ModelAndView("register");
     modelView.addObject("user", new User());
-
+    LOG.log(Level.INFO, "New User object created");
     return modelView;
 
   }
@@ -59,12 +63,14 @@ public class UserRegistrationController {
 			  
 			  modelView = new ModelAndView("register-security");
 			  modelView.addObject("secQuestions", UserUtil.SECURITY_QUESTIONS);
-			  
+			  LOG.log(Level.INFO, "Registration started for: "+user.getUsername()+", DOB "+
+					  user.getBirthMonth()+"/"+user.getBirthDay()+"/"+user.getBirthYear());
 			  return modelView;
 		  }
 		  else {
 			  modelView = new ModelAndView("register");
 			  modelView.addObject("errorMessage", "Your username and birthday are mandatory fields. Please try again.");
+			  LOG.log(Level.WARNING, "Invalid registration fields found.");
 			  return modelView;
 		  }
 			  
@@ -72,6 +78,7 @@ public class UserRegistrationController {
 	  } else {
 		  modelView = new ModelAndView("register");
 		  modelView.addObject("errorMessage", "There was a problem getting the user. Please try again.");
+		  LOG.log(Level.WARNING, "Session does not include a user object.");
 		  return modelView;
 	  }
 	  
@@ -102,6 +109,7 @@ public class UserRegistrationController {
 			  user.getSecurity3() != null && !user.getSecurity3().isEmpty() &&
 			  user.getAnswer3() != null && !user.getAnswer3().isEmpty() ) {
 			  
+			  LOG.log(Level.INFO, "Registration security questions are valid.");
 			  modelView = new ModelAndView("welcome");
 			  
 			  return modelView;
@@ -110,6 +118,7 @@ public class UserRegistrationController {
 			  modelView = new ModelAndView("register-security");
 			  modelView.addObject("secQuestions", UserUtil.SECURITY_QUESTIONS);
 			  modelView.addObject("errorMessage", "You must select three different security questions and answer them. Please try again.");
+			  LOG.log(Level.WARNING, "Invalid security question fields found.");
 			  return modelView;
 		  }
 			  
@@ -117,6 +126,7 @@ public class UserRegistrationController {
 	  } else {
 		  modelView = new ModelAndView("register");
 		  modelView.addObject("errorMessage", "There was a problem getting the user. Please try again.");
+		  LOG.log(Level.WARNING, "Session does not include a user object.");
 		  return modelView;
 	  }
 

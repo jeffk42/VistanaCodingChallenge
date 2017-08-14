@@ -1,5 +1,8 @@
 package jmk.challenge.controller;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,6 +19,8 @@ import jmk.challenge.model.User;
 @Controller
 public class UserLoginController {
   
+	private static final Logger LOG = Logger.getLogger(UserLoginController.class.getName());
+	
 	/**
 	 * Called when the user enters a username in the pop-up menu.
 	 * @param request
@@ -33,7 +38,7 @@ public class UserLoginController {
     	// There's no user in session, so start over.
     	modelView = new ModelAndView("index");
     	modelView.addObject("errorMessage", "There is no user in session. Please register before attempting to login.");
-    	
+    	LOG.log(Level.WARNING, "Login attempted with no user in session.");
     }
     else {
     	
@@ -77,11 +82,10 @@ public class UserLoginController {
 	User inSessionUser = (User) request.getSession().getAttribute("user");
 	
 	if (inSessionUser != null)
-		System.out.println("Session user: "+inSessionUser.getUsername());
-	else System.out.println("Session User is null.");
+		LOG.log(Level.INFO, "Session user found: "+inSessionUser.getUsername());
+	else 
+		LOG.log(Level.WARNING, "Session User is null.");
 	
-
-		
     ModelAndView modelView = null;
 
     // Make sure the username and security question/answer matches what the user registered.
@@ -92,6 +96,7 @@ public class UserLoginController {
     } else {
     	modelView = new ModelAndView("login");
     	modelView.addObject("errorMessage", "Your username or security question is incorrect. Please try again.");
+    	LOG.log(Level.INFO, "User failed authentication.");
     }
 
     return modelView;

@@ -1,0 +1,7 @@
+.gradle
+bin
+.settings
+.project
+build/classes*
+build/test-results*
+build/reports*
