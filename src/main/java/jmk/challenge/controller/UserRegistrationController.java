@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import jmk.challenge.collection.UserUtil;
 import jmk.challenge.model.User;
+import jmk.challenge.util.UserUtil;
 
 /**
  * Controller for user registration

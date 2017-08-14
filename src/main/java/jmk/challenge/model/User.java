@@ -13,7 +13,6 @@ public class User {
 	private int birthMonth;
 	private int birthYear;
 	private int birthDay;
-	private HashMap<String,String> qaMap = null;
 	private String security1;
 	private String answer1;
 	private String security2;
@@ -71,34 +70,7 @@ public class User {
 	public void setBirthDay(int birthDay) {
 		this.birthDay = birthDay;
 	}
-	/**
-	 * @return the qaMap
-	 */
-	public HashMap<String,String> getQaMap() {
-		return qaMap;
-	}
-	/**
-	 * @param qaMap the qaMap to set
-	 */
-	public void setQaMap(HashMap<String,String> qaMap) {
-		this.qaMap = qaMap;
-	}
 	
-	public void addQuestionAnswer(String question, String answer) {
-		getQaMap().put(question, answer);
-	}
-	
-	public String getQuestionAnswer(String question) {
-		return getQaMap().get(question);
-	}
-	
-	public String getPassword() {
-		return getQaMap().get("password");
-	}
-	
-	public void setPassword(String newPassword) {
-		getQaMap().put("password", newPassword);
-	}
 	/**
 	 * @return the security1
 	 */
