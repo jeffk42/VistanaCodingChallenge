@@ -2,6 +2,11 @@
 bin
 .settings
 .project
-build/classes*
-build/test-results*
-build/reports*
+build/classes
+build/test-results
+build/reports
+build/tmp
+gradle
+.classpath
+gradlew
+gradlew.bat
