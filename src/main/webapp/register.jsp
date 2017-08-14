@@ -38,19 +38,30 @@
 	}
 	
 </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script> 
+$(document).ready(function(){
+		$("#row0").fadeIn(600);
+        $("#row1").fadeIn(1000);
+        $("#row2").fadeIn(1200);
+        $("#row3").fadeIn(1400);
+        $("#row4").fadeIn(1600);
+   
+});
+</script> 
 </head>
 
 <body>
-
+	<table align="center"><tr id="row0" style="display:none"><td><h2>User Registration</h2></td></tr></table>
 	<form:form id="regForm" modelAttribute="user" action="register-security"
 		method="post" onsubmit="return checkValues()">
 
 		<table align="center">
-			<tr>
+			<tr id="row1" style="display:none">
 				<td><form:label path="username">Please enter a username:</form:label></td>
 				<td><form:input path="username" name="username" id="username" /></td>
 			</tr>
-			<tr>
+			<tr id="row2" style="display:none">
                 <td>Please enter your birthday:</td>
                 <td>
                     <form:input path="birthMonth" name="birthMonth" id="birthMonth" maxlength="2" size="2" /> / 
@@ -58,13 +69,13 @@
                     <form:input path="birthYear" name="birthYear" id="birthYear" maxlength="4" size="4" />
                 </td>
             </tr>
-			<tr>
+			<tr id="row3" style="display:none">
 				<td></td>
 				<td><form:button id="register-security" name="register-security">Register</form:button>
 				</td>
 			</tr>
 			<tr></tr>
-			<tr>
+			<tr id="row4" style="display:none">
 				<td></td>
 				<td><a href="index.jsp">Home</a></td>
 			</tr>

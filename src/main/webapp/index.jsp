@@ -10,7 +10,7 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
-<title>Welcome</title>
+<title>Main Page</title>
 
 <script>
 function userprompt() {
@@ -25,11 +25,25 @@ function userprompt() {
     return;
 }
 </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script> 
+$(document).ready(function(){
+    
+        $("#welcomeheader").fadeIn(1000);
+        $("#choosetext").fadeIn(1000);
+        $("#buttonTable").fadeIn(1500);
+   
+});
+</script> 
 </head>
 
 <body>
-	
 	<table align="center">
+		<tr><td align="center"><h2 id="welcomeheader" style="display:none">Welcome to the site!</h2></td></tr>
+		<tr><td align="center"><span id="choosetext" style="display:none">Please choose an option below:</span></td></tr>
+	</table>
+	<br /><br />
+	<table align="center" id="buttonTable" style="display:none">
 		<tr>
 			<td><button onclick="userprompt()">Login</button></td>
 			<td><button onclick="window.location='register'">Sign Up</button></td>

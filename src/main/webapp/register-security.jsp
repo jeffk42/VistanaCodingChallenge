@@ -11,25 +11,36 @@
 
 <title>Registration</title>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script> 
+$(document).ready(function(){
+		$("#titletable").fadeIn(600);
+        $("#rowhead").fadeIn(800);
+        $('[id^="row"]').fadeIn(1000);
+        $("#buttonrow").fadeIn(1600);
+        $("#homerow").fadeIn(1600);
+   
+});
+</script> 
 </head>
 
 <body>
 
 	<form:form id="regForm" modelAttribute="user" action="register-complete"
 		method="post">
-
-		<table align="center">
+ 
+		<table align="center" id="titletable" style="display:none">
 			<tr>
-				<td>Username: </td>
+				<td>Complete Registration For User: </td>
 				<td><b><c:out value="${sessionScope.user.username}" /></b></td>
 			</tr>
 		</table>
 
-			
+			<br /><br />
 		<table align="center">
-			<tr><th>Security Question</th><th>Answer</th></tr>
+			<tr id="rowhead" style="display:none"><th>Security Question</th><th>Answer</th></tr>
 			<c:forEach items="${sessionScope.user.securityQuestions}" varStatus="lcv">
-            <tr>
+            <tr id="row${lcv.index}" style="display:none">
             	<td>
             		<form:select path="securityQuestions[${lcv.index}]" name="securityQuestions[${lcv.index}]" id="securityQuestions[${lcv.index}]">
             			<c:forEach items="${secQuestions}" var="question">
@@ -44,13 +55,13 @@
             </tr>
             </c:forEach>
  
-			<tr>
+			<tr id="buttonrow" style="display:none">
 				<td></td>
 				<td><form:button id="register" name="register">Register</form:button>
 				</td>
 			</tr>
 			<tr></tr>
-			<tr>
+			<tr id="homerow" style="display:none">
 				<td>
 					<form:hidden path="username" id="username" name="username" />
 					<form:hidden path="birthMonth" id="birthMonth" name="birthMonth" />

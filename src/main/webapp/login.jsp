@@ -5,13 +5,21 @@
 <html>
 <head>
 <title>Page Login</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script> 
+$(document).ready(function(){
+		$("#formtable").fadeIn(1000);
+     
+});
+</script> 
 </head>
 
 <body>
 
 	<form:form id="loginForm" modelAttribute="login" action="login-security"
 		method="post">
-		<table align="center">
+		<table align="center" id="formtable" style="display:none">
 			<tr>
 				<td>Username Selected: </td>
 				<td><b>${param.username}</b></td>
