@@ -47,18 +47,8 @@ public class UserLoginController {
 	    newLogin.setUsername(request.getParameter("username"));
 	    
 	    // Randomly choose a security question for that user to answer.
-	    
-		int rand = 1 + (int)(3 * Math.random());
-		
-		if (rand == 1) {
-			newLogin.setSecurityQuestion(user.getSecurity1());
-		}
-		else if (rand == 2) {
-			newLogin.setSecurityQuestion(user.getSecurity2());
-		}
-		else {
-			newLogin.setSecurityQuestion(user.getSecurity3());
-		}
+	    int rand = (int)(3 * Math.random());
+	    newLogin.setSecurityQuestion(user.getSecurityQuestions()[rand]);
 		
 	    modelView.addObject("login", newLogin);
     }

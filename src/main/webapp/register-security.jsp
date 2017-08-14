@@ -28,44 +28,22 @@
 			
 		<table align="center">
 			<tr><th>Security Question</th><th>Answer</th></tr>
+			<c:forEach items="${sessionScope.user.securityQuestions}" varStatus="lcv">
             <tr>
             	<td>
-            		<form:select path="security1" name="security1" id="security1">
+            		<form:select path="securityQuestions[${lcv.index}]" name="securityQuestions[${lcv.index}]" id="securityQuestions[${lcv.index}]">
             			<c:forEach items="${secQuestions}" var="question">
             				<option value="${question}">${question}</option>
             			</c:forEach>
             		</form:select>
             	</td>
             	<td>
-            		<form:input path="answer1" name="answer1" id="answer1" />
+            		<form:input path="securityAnswers[${lcv.index}]" name="securityAnswers[${lcv.index}]" id="securityAnswers[${lcv.index}]" />
             	</td>
 
             </tr>
-            <tr>
-            	<td>
-            		<form:select path="security2" name="security2" id="security2">
-            			<c:forEach items="${secQuestions}" var="question">
-            				<option value="${question}">${question}</option>
-            			</c:forEach>
-            		</form:select>
-            	</td>
-            	<td>
-            		<form:input path="answer2" name="answer2" id="answer2" />
-            	</td>
-
-            </tr>
-            <tr>
-            	<td>
-            		<form:select path="security3" name="security3" id="security3">
-            			<c:forEach items="${secQuestions}" var="question">
-            				<option value="${question}">${question}</option>
-            			</c:forEach>
-            		</form:select>
-            	</td>
-            	<td>
-            		<form:input path="answer3" name="answer3" id="answer3" />
-            	</td>
-            </tr>
+            </c:forEach>
+ 
 			<tr>
 				<td></td>
 				<td><form:button id="register" name="register">Register</form:button>

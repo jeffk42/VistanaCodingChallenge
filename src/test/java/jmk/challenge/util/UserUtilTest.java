@@ -1,6 +1,7 @@
 package jmk.challenge.util;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 import org.junit.Test;
 
@@ -15,12 +16,11 @@ public class UserUtilTest {
         
         // Create a basic User to test against
         user.setUsername("testUser");
-        user.setSecurity1("question1");
-        user.setSecurity2("question2");
-        user.setSecurity3("question3");
-        user.setAnswer1("answer1");
-        user.setAnswer2("answer2");
-        user.setAnswer3("answer3");
+        String [] questions = {"question1", "question2", "question3"};
+        String [] answers = {"answer1", "answer2", "answer3"};
+        
+        user.setSecurityQuestions(questions);
+        user.setSecurityAnswers(answers);
         
         //Create a "correct" login where the user answered security question 1
         login.setUsername("testUser");
@@ -66,4 +66,41 @@ public class UserUtilTest {
         
         assertTrue("validateUser should fail and return null when the username is wrong.", UserUtil.validateUser(login,user) == null);
     }
+	
+	@Test public void testValidateSecurityQuestions() {
+		User user = new User();
+        
+        // Create a basic User to test against
+        user.setUsername("testUser");
+        String [] questions = {UserUtil.SECURITY_QUESTIONS.get(0), 
+        						UserUtil.SECURITY_QUESTIONS.get(1), 
+        						UserUtil.SECURITY_QUESTIONS.get(2)};
+        String [] answers = {"answer1", "answer2", "answer3"};
+        
+        user.setSecurityQuestions(questions);
+        user.setSecurityAnswers(answers);
+        
+        // User contains three distinct and known security questions, and all questions are answered.
+        assertTrue("validateSecurityQuestions should pass with three distinct known questions and valid answers.", 
+        		UserUtil.validateSecurityQuestions(user));
+        
+        user.getSecurityQuestions()[2] = UserUtil.SECURITY_QUESTIONS.get(1);
+        
+        // User contains three known security questions, but one of them is a duplicate.
+        assertFalse("validateSecurityQuestions should fail with a duplicate question.", 
+        		UserUtil.validateSecurityQuestions(user));
+        
+        user.getSecurityQuestions()[2] = "unknown question";
+        
+        // User contains an unknown question.
+        assertFalse("validateSecurityQuestions should fail with an unknown question.", 
+        		UserUtil.validateSecurityQuestions(user));
+        
+        user.getSecurityQuestions()[2] = UserUtil.SECURITY_QUESTIONS.get(1);
+        user.getSecurityAnswers()[0] = "";
+        
+        // User contains an empty answer.
+        assertFalse("validateSecurityQuestions should fail with an empty answer.", 
+        		UserUtil.validateSecurityQuestions(user));
+	}
 }

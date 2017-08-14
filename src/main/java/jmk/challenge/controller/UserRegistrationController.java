@@ -102,13 +102,8 @@ public class UserRegistrationController {
 	  
 	  // Make sure the security questions have been selected and have answers.
 	  if (user != null) {
-		  if (user.getSecurity1() != null && !user.getSecurity1().isEmpty() &&
-			  user.getAnswer1() != null && !user.getAnswer1().isEmpty() &&
-			  user.getSecurity2() != null && !user.getSecurity2().isEmpty() &&
-			  user.getAnswer2() != null && !user.getAnswer2().isEmpty() &&
-			  user.getSecurity3() != null && !user.getSecurity3().isEmpty() &&
-			  user.getAnswer3() != null && !user.getAnswer3().isEmpty() ) {
-			  
+
+		  if (UserUtil.validateSecurityQuestions(user)) {  
 			  LOG.log(Level.INFO, "Registration security questions are valid.");
 			  modelView = new ModelAndView("welcome");
 			  

@@ -1,63 +1,50 @@
-    <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<html>
 
-        <html>
+<head>
 
-        <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
-            <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>Welcome, ${sessionScope.user.username}!</title>
 
-            <title>Welcome, ${sessionScope.user.username}!</title>
-
-        </head>
-
-        <body>
-
-			<table align="center">
-				<tr>
-					<td>Thank you for signing up, ${sessionScope.user.username}!</td>
-				</tr>
-			</table>
-			
-			<br /><br />
-			
-			<table align="center" width="75%">
-				<tr>
-					<th>Detail</th><th>Value</th>
-				</tr>
-				<tr>
-					<td>Username</td><td>${sessionScope.user.username}</td>
-				</tr>
-				<tr>
-					<td>Birthday</td><td>${sessionScope.user.birthMonth}/${sessionScope.user.birthDay}/${sessionScope.user.birthYear}</td>
-				</tr>
-				<tr>
-					<td>Security Question #1</td><td>${sessionScope.user.security1}</td>
-				</tr>
-				<tr>
-					<td>Security Answer #1</td><td>${sessionScope.user.answer1}</td>
-				</tr>
-				<tr>
-					<td>Security Question #2</td><td>${sessionScope.user.security2}</td>
-				</tr>
-				<tr>
-					<td>Security Answer #2</td><td>${sessionScope.user.answer2}</td>
-				</tr>
-				<tr>
-					<td>Security Question #3</td><td>${sessionScope.user.security3}</td>
-				</tr>
-				<tr>
-					<td>Security Answer #3</td><td>${sessionScope.user.answer3}</td>
-				</tr>
-			</table>
-			<br /><br />
-			<table align="center">
-				<tr><td colspan="2"><a href="index.jsp">Return to Main Page</a></td></tr>
-			</table>
-
-                        
-
-
-
-        </body>
-
-        </html>
+</head>
+	
+<body>
+	
+	<table align="center">
+		<tr>
+			<td>Thank you for signing up, ${sessionScope.user.username}!</td>
+		</tr>
+	</table>
+	
+	<br /><br />
+	
+	<table align="center" width="75%">
+		<tr>
+			<th>Detail</th><th>Value</th>
+		</tr>
+		<tr>
+			<td>Username</td><td>${sessionScope.user.username}</td>
+		</tr>
+		<tr>
+			<td>Birthday</td><td>${sessionScope.user.birthMonth}/${sessionScope.user.birthDay}/${sessionScope.user.birthYear}</td>
+		</tr>
+		<c:forEach items="${sessionScope.user.securityQuestions}" var="question" varStatus="lcv">
+			<tr>
+				<td>Security Question #${lcv.count}</td><td>${sessionScope.user.securityQuestions[lcv.index]}</td>
+			</tr>
+			<tr>
+				<td>Security Answer #${lcv.count}</td><td>${sessionScope.user.securityAnswers[lcv.index]}</td>
+			</tr>
+		</c:forEach>
+		
+	</table>
+	<br /><br />
+	<table align="center">
+		<tr><td colspan="2"><a href="index.jsp">Return to Main Page</a></td></tr>
+	</table>
+	
+	                     
+</body>
+</html>
